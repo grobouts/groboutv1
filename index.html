@@ -39,7 +39,7 @@
         <div id="video_wrap">
           <video id="video_frame" playsinline autoplay hidden></video>
           <canvas id="canvas_frame"></canvas>
-          <span name="errorMsg" style="height: 20px;">Instruccion</span>
+          <span id="errorMsg" style="height: 20px;">Instruccion</span>
         </div>
         <div>
             <div id="right" class="comspot"></div>
@@ -64,7 +64,7 @@ if (isMobile) {
 // VIDEO BLOCK STARTS
 const videoFrame = document.getElementById('video_frame');
 const canvas = document.getElementById('canvas_frame');
-const msgElement = document.querySelector('span#errorMsg');
+const msgElement = document.getElementById('errorMsg');
 
 // Definimos tamaño del video y si queremos audio o no
 const constraints = {
@@ -80,7 +80,7 @@ async function init() {
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
         handleSuccess(stream);
     } catch (e) {
-        errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+        msgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
     }
 }
 
