@@ -63,7 +63,7 @@ if (isMobile) {
 
 // VIDEO BLOCK STARTS
 const videoFrame = document.getElementById('video_frame');
-const canvasFrame = document.getElementById('canvas_frame');
+const canvas = document.getElementById('canvas_frame');
 const msgElement = document.querySelector('span#errorMsg');
 
 // Definimos tamaño del video y si queremos audio o no
@@ -94,7 +94,7 @@ async function handleSuccess(stream) {
 init();
 
 // Hacemos captura de pantalla al hacer click
-var context = canvasFrame.getContext('2d');
+var context = canvas.getContext('2d');
 
 my_interval = setInterval(() => {
   context.drawImage(videoFrame, 0, 0, 320, 140);
