@@ -36,6 +36,9 @@
     <script src="tf.min.js"></script>
     <!-- <h1>Conduccion Automatica</h1> -->
     <div>
+        <div id="video_wrap">
+          <video id="video_frame" playsinline autoplay hidden></video>
+        </div>
         <div>
             <div id="right" class="comspot"></div>
             <div id="left" class="comspot"></div>
@@ -45,13 +48,56 @@
         </div>
     </div>
     <script>
-    $.support.cors = true;
-    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    if (isMobile) {
-        // Set one style
-    } else {
-        // Set another style
+
+$.support.cors = true;
+
+var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+if (isMobile) {
+    // Set one style
+} else {
+    // Set another style
+}
+
+// VIDEO BLOCK STARTS
+const videoFrame = document.getElementById('video_frame');
+const canvasFrame = document.getElementById('canvas_frame');
+const errorMsgElement = document.querySelector('span#errorMsg');
+
+// Definimos tamaño del video y si queremos audio o no
+const constraints = {
+    audio: false,
+    video: {
+        width: 720, height: 405
     }
+};
+
+// Comprobamos acceso a la Webcam
+async function init() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        handleSuccess(stream);
+    } catch (e) {
+        errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+    }
+}
+
+// En caso de que el acceso sea correcto, cargamos la webcam
+async function handleSuccess(stream) {
+    window.stream = stream;
+    videoFrame.srcObject = stream;
+}
+
+// Iniciamos JS
+init();
+
+// Hacemos captura de pantalla al hacer click
+var context = canvasFrame.getContext('2d');
+
+my_interval = setInterval(() => {
+    context.drawImage(videoFrame, 0, 0, 320, 140);
+}, 500);
+    // VIDEO BLOCK ENDS
 
     tf.loadLayersModel('model/model.json').then(function(model) {
       window.model = model;
