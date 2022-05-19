@@ -128,26 +128,27 @@ var predict = function(input) {
     window.model.predict([tf.tensor(input).reshape([1, 227, 227, 1])]).array().then(function(scores){
       scores = scores[0];
       predicted = scores.indexOf(Math.max(...scores));
+      msgElement.innerHTML = predicted + ' : '
       if (predicted == 0){
         //   Straight
         document.getElementById('right').style.background = 'white';
         document.getElementById('left').style.background  = 'white';
-        msgElement.innerHTML = 'Straight';
+        msgElement.innerHTML += 'Straight';
       } else if (predicted == 1){
         //   Go left
         document.getElementById('right').style.background = 'white';
         document.getElementById('left').style.background  = 'black';
-        msgElement.innerHTML = 'Left';
+        msgElement.innerHTML += 'Left';
       } else if (predicted == 2){
         //   Go right
         document.getElementById('right').style.background = 'black';
         document.getElementById('left').style.background  = 'white';
-        msgElement.innerHTML = 'Right';
+        msgElement.innerHTML += 'Right';
       } else {
         //   Keep going straight
         document.getElementById('right').style.background = 'white';
         document.getElementById('left').style.background  = 'white';
-        msgElement.innerHTML = 'Straight';
+        msgElement.innerHTML += 'Straight';
       }
     });
   } else {
