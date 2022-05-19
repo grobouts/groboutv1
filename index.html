@@ -109,7 +109,7 @@ my_interval = setInterval(() => {
     data = context.getImageData(0, 0, 227, 227).data;
     var input = [];
     for(var i = 0; i < data.length; i += 4) {
-      input.push(1-data[i + 2] / 255);  // REMOVE "1 - " FOR REAL ROAD
+      input.push(data[i + 2] / 255);  // REMOVE "1 - " FOR REAL ROAD
     }
     predict(input);
   };
