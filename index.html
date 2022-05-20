@@ -157,6 +157,16 @@ var predict = function(input) {
   }
 }
 
+class L2 {
+
+static className = 'L2';
+
+constructor(config) {
+   return tf.regularizers.l1l2(config)
+}
+}
+tf.serialization.registerClass(L2);
+
     </script>
   </body>
 </html>
